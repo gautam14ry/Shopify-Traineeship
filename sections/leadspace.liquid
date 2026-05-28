@@ -1,0 +1,61 @@
+{% schema %}
+{
+  "name": "Leadspace",
+  "tag": "section",
+  "class": "leadspace",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings":[
+    {
+    "type": "image_picker",
+    "id": "desktop_cover_image",
+    "label": "Cover Image Desktop"
+},
+
+{
+    "type": "image_picker",
+    "id": "mobile_cover_image",
+    "label": "Cover Image Mobile"
+},
+
+{
+  "type": "number",
+  "id": "desktop_top_padding",
+  "label": "Desktop Top Padding",
+  "default": 40
+},
+{
+  "type": "number",
+  "id": "desktop_bottom_padding",
+  "label": "Desktop Bottom Padding",
+  "default": 40
+},
+{
+  "type": "number",
+  "id": "mobile_top_padding",
+  "label": "Mobile Top Padding",
+  "default": 20
+},
+{
+  "type": "number",
+  "id": "mobile_bottom_padding",
+  "label": "Mobile Bottom Padding",
+  "default": 20
+},
+
+],
+
+"blocks" : [{
+
+
+}],
+
+
+  "presets": [
+    {
+      "name": "Leadspace"
+    }
+  ]
+}
+{% endschema %}
