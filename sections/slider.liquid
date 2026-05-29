@@ -1,0 +1,372 @@
+<style>
+    #shopify-section-{{ section.id }} {
+      background-color: #FFEDDD;
+
+    }
+    @media(min-width: 768px){
+      #shopify-section-{{ section.id }} {
+      padding: 50px;
+    }
+    }
+
+    #shopify-section-{{ section.id }} .slider-section {
+      padding-top: {{ section.settings.mobile_top_padding }}px;
+      padding-bottom: {{ section.settings.mobile_bottom_padding }}px;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      font-family: Helvetica, sans-serif;
+    }
+
+    @media (min-width: 768px) {
+      #shopify-section-{{ section.id }} .slider-section {
+        padding-top: {{ section.settings.desktop_top_padding }}px;
+        padding-bottom: {{ section.settings.desktop_bottom_padding }}px;
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+    }
+
+    .slider-section-container {
+      background-color: #FFEDDD;
+      border-radius: 0;
+      padding: 0;
+    }
+
+    @media (min-width: 768px) {
+      .slider-section-container {
+        background-color: #A07636;
+        border-radius: 20px;
+        padding: 1.5rem 2.5rem 2rem;
+      }
+    }
+
+    .slider-section__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .slider-section__title {
+      font-size: clamp(1.1rem, 1rem + 1vw, 1.75rem);
+      font-weight: 700;
+      color: #3b1f08;
+      margin: 0;
+    }
+
+    @media (min-width: 768px) {
+      .slider-section__title {
+        color: #ffffff;
+      }
+    }
+
+    .slider-section__controls {
+      display: none;
+      gap: 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .slider-section__controls {
+        display: flex;
+      }
+    }
+
+  .slider-section__btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid #ffffff;
+    background-color: #FFFFFF;
+    color: #A07636;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem; 
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .slider-section__btn:hover {
+    background-color: #A07636;
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+  }
+
+
+    .slider-section__track {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 1rem;
+      scroll-behavior: smooth;
+    }
+
+    .slider-section__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .slider-section__track .slider-section__card {
+      flex: 0 0 calc(58% - 0.5rem);
+      scroll-snap-align: start;
+    }
+
+    @media (min-width: 768px) {
+      .slider-section__track .slider-section__card {
+        flex: 0 0 calc(25% - 0.75rem);
+      }
+
+      .slider-section__track.is-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        overflow-x: visible;
+      }
+
+      .slider-section__track.is-grid .slider-section__card {
+        flex: unset;
+      }
+    }
+
+    .slider-section__card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: #ffffff;
+      border-radius: 4px;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .slider-section__card-image-wrapper {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background-color: #f3f3f3; /* Added to give placeholder background structural depth */
+    }
+
+    /* Added to make the Shopify placeholder SVG look natural inside your 3:4 container */
+    .slider-section__card-image-wrapper svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      fill: #dadada;
+    }
+
+    .slider-section__card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .slider-section__card-info {
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .slider-section__card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .slider-section__card-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #666;
+    }
+
+    .slider-section__card-price {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #102116;
+    }
+
+    .slider-section__card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #102116;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+</style>
+
+<div class="slider-section-container">
+  <div class="slider-section">
+    <div class="slider-section__header">
+      {% if section.settings.section_name != blank %}
+        <h2 class="slider-section__title">{{ section.settings.section_name }}</h2>
+      {% endif %}
+
+      {% if section.blocks.size > 4 %}
+        <div class="slider-section__controls">
+          <button class="slider-section__btn" id="btn-prev-{{ section.id }}" aria-label="Previous">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="slider-section__btn" id="btn-next-{{ section.id }}" aria-label="Next">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      {% endif %}
+    </div>
+
+    <div
+      class="slider-section__track{% if section.blocks.size <= 4 %} is-grid{% endif %}"
+      id="slider-track-{{ section.id }}"
+    >
+      {% for block in section.blocks %}
+        {% if block.type == 'card' %}
+          {% if block.settings.card_url != blank %}
+            {% assign card_tag = 'a' %}
+          {% else %}
+            {% assign card_tag = 'div' %}
+          {% endif %}
+
+          <{{ card_tag }}
+            {% if block.settings.card_url != blank %}
+              href="{{ block.settings.card_url }}"
+            {% endif %}
+            class="slider-section__card"
+            {{ block.shopify_attributes }}
+          >
+            <div class="slider-section__card-image-wrapper">
+              {% if block.settings.card_image != blank %}
+                {{
+                  block.settings.card_image
+                  | image_url: width: 400
+                  | image_tag: class: 'slider-section__card-image', alt: block.settings.card_image.alt
+                }}
+              {% else %}
+                {{ 'product-1' | placeholder_svg_tag }}
+              {% endif %}
+            </div>
+
+            <div class="slider-section__card-info">
+              <div class="slider-section__card-meta">
+                {% if block.settings.card_tag != blank %}
+                  <span class="slider-section__card-tag">{{ block.settings.card_tag }}</span>
+                {% endif %}
+                {% if block.settings.card_price != blank %}
+                  <span class="slider-section__card-price">{{ block.settings.card_price }}</span>
+                {% endif %}
+              </div>
+
+              {% if block.settings.card_title != blank %}
+                <p class="slider-section__card-title">{{ block.settings.card_title }}</p>
+              {% endif %}
+            </div>
+          </{{ card_tag }}>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% if section.blocks.size > 4 %}
+  <script>
+    (function () {
+      var track = document.getElementById('slider-track-{{ section.id }}');
+      var btnPrev = document.getElementById('btn-prev-{{ section.id }}');
+      var btnNext = document.getElementById('btn-next-{{ section.id }}');
+
+      if (!track || !btnPrev || !btnNext) return;
+
+      btnNext.addEventListener('click', function () {
+        var cardWidth = track.querySelector('.slider-section__card').offsetWidth + 16;
+        track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      });
+
+      btnPrev.addEventListener('click', function () {
+        var cardWidth = track.querySelector('.slider-section__card').offsetWidth + 16;
+        track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      });
+    })();
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Slider",
+  "tag": "section",
+  "class": "slider-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_name",
+      "label": "Section Name",
+      "default": "Tailgate Apparel"
+    },
+    {
+      "type": "number",
+      "id": "desktop_top_padding",
+      "label": "Desktop Top Padding",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "desktop_bottom_padding",
+      "label": "Desktop Bottom Padding",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "mobile_top_padding",
+      "label": "Mobile Top Padding",
+      "default": 20
+    },
+    {
+      "type": "number",
+      "id": "mobile_bottom_padding",
+      "label": "Mobile Bottom Padding",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card Title"
+        },
+        {
+          "type": "text",
+          "id": "card_price",
+          "label": "Price"
+        },
+        {
+          "type": "text",
+          "id": "card_tag",
+          "label": "Tag"
+        },
+        {
+          "type": "url",
+          "id": "card_url",
+          "label": "Card URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slider"
+    }
+  ]
+}
+{% endschema %}
