@@ -1,0 +1,76 @@
+{% comment %}
+  Renders a slider card block.
+  Accepts:
+  - block: {Object} Shopify block object (required)
+{% endcomment %}
+
+{%- liquid
+  assign card_url = block.settings.url
+  assign card_image = block.settings.image
+  assign card_title = block.settings.title
+  assign card_price = block.settings.price
+  assign card_tag = block.settings.tag
+
+  assign has_url = false
+  if card_url != blank
+    assign has_url = true
+  endif
+-%}
+
+{%- if has_url -%}
+  <a href="{{ card_url }}" class="slider-card-item" {{ block.shopify_attributes }}>
+{%- else -%}
+  <div class="slider-card-item" {{ block.shopify_attributes }}>
+{%- endif -%}
+
+  {%- if card_image != blank or card_title != blank or card_price != blank or card_tag != blank -%}
+    <!-- Card Image Container -->
+    <div class="slider-card-image-wrapper">
+      {%- if card_image != blank -%}
+        <img
+          src="{{ card_image | image_url: width: 600 }}"
+          alt="{{ card_image.alt | default: card_title | default: 'Card Image' | escape }}"
+          class="slider-card-img"
+          loading="lazy"
+          width="264"
+          height="336"
+        >
+      {%- else -%}
+        <div class="slider-card-placeholder">
+          {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg-content' }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Card Info Details -->
+    <div class="slider-card-content">
+      <div class="slider-card-meta">
+        {%- if card_tag != blank -%}
+          <span class="slider-card-tag">{{ card_tag | escape }}</span>
+        {%- endif -%}
+        {%- if card_price != blank -%}
+          <span class="slider-card-price">{{ card_price | escape }}</span>
+        {%- endif -%}
+      </div>
+      
+      {%- if card_title != blank -%}
+        <h3 class="slider-card-title">{{ card_title | escape }}</h3>
+      {%- endif -%}
+    </div>
+  {%- else -%}
+    <!-- Blank State Placeholder when no fields are filled -->
+    <div class="slider-card-image-wrapper">
+      <div class="slider-card-placeholder">
+        {{ 'product-3' | placeholder_svg_tag: 'placeholder-svg-content' }}
+      </div>
+    </div>
+    <div class="slider-card-content">
+      <h3 class="slider-card-title">Empty Card Block</h3>
+    </div>
+  {%- endif -%}
+
+{%- if has_url -%}
+  </a>
+{%- else -%}
+  </div>
+{%- endif -%}

@@ -1,0 +1,417 @@
+{%- style -%}
+  .leadspace-section-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    background-color: #ffeddd; /* Pale peach background */
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  /* Responsive Spacing from Settings */
+  @media screen and (min-width: 769px) {
+    .leadspace-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+      height: 876px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .leadspace-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+      height: 704px;
+    }
+  }
+
+  /* Container */
+  .leadspace-container-{{ section.id }} {
+    position: relative;
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Cover Image / Back Box */
+  .leadspace-cover-{{ section.id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 1;
+  }
+  @media screen and (min-width: 769px) {
+    .leadspace-cover-{{ section.id }} {
+      height: 479px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .leadspace-cover-{{ section.id }} {
+      height: 429px;
+      width: 100%;
+    }
+  }
+
+  .leadspace-cover-img-{{ section.id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .leadspace-cover-placeholder-{{ section.id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #EADBC8;
+    display: block;
+  }
+
+  /* Front Box */
+  .leadspace-front-box-{{ section.id }} {
+    position: absolute;
+    background-color: #102116; /* Dark Green from Figma */
+    border-radius: 25px;
+    z-index: 2;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  @media screen and (min-width: 769px) {
+    .leadspace-front-box-{{ section.id }} {
+      width: 1168px;
+      height: 634px;
+      top: 162px;
+      left: 136px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .leadspace-front-box-{{ section.id }} {
+      width: 331px;
+      height: 584px;
+      top: 64px;
+      left: 0;
+    }
+  }
+
+  /* Fall Trends Heading */
+  .leadspace-heading-{{ section.id }} {
+    position: absolute;
+    color: #FFFFFF;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0;
+    z-index: 3;
+    pointer-events: none;
+  }
+  @media screen and (min-width: 769px) {
+    .leadspace-heading-{{ section.id }} {
+      width: 1062px;
+      height: 322px;
+      top: 77px;
+      left: 48px;
+      font-size: 160px;
+      line-height: 150px;
+      letter-spacing: 0%;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .leadspace-heading-{{ section.id }} {
+      width: 295px;
+      height: 154px;
+      top: 93px;
+      left: 15px;
+      font-size: 80px;
+      line-height: 80px;
+      letter-spacing: 0%;
+    }
+  }
+
+  /* Description (Lorem ipsum) */
+  .leadspace-desc-{{ section.id }} {
+    position: absolute;
+    color: #FFFFFF;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+    margin: 0;
+    z-index: 3;
+  }
+  @media screen and (min-width: 769px) {
+    .leadspace-desc-{{ section.id }} {
+      width: 512px;
+      height: 71px;
+      top: 414px;
+      left: 72px;
+      font-size: 24px;
+      line-height: 120%;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .leadspace-desc-{{ section.id }} {
+      width: 295px;
+      height: 81px;
+      top: 264px;
+      left: 15px;
+      font-size: 21px;
+      line-height: 120%;
+    }
+  }
+
+  /* Shop Now Button */
+  .leadspace-btn-{{ section.id }} {
+    position: absolute;
+    background-color: #FFFFFF;
+    color: #0F2216;
+    border-radius: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    z-index: 4;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  .leadspace-btn-{{ section.id }}:hover {
+    background-color: #F3ECE5;
+    transform: translateY(-2px);
+  }
+  .leadspace-btn-text-{{ section.id }} {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 500;
+    font-size: 27px;
+    line-height: 100%;
+    text-align: center;
+  }
+  @media screen and (min-width: 769px) {
+    .leadspace-btn-{{ section.id }} {
+      width: 351.43px;
+      height: 82.37px;
+      top: 520px;
+      left: 72px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .leadspace-btn-{{ section.id }} {
+      width: 229px;
+      height: 73px;
+      top: 562px;
+      left: 70px;
+    }
+  }
+
+  /* Front Image Box */
+  .leadspace-front-img-box-{{ section.id }} {
+    position: absolute;
+    overflow: hidden;
+    z-index: 2;
+  }
+  @media screen and (min-width: 769px) {
+    .leadspace-front-img-box-{{ section.id }} {
+      width: 589px;
+      height: 625px;
+      top: 9px;
+      left: 579px;
+      border-bottom-right-radius: 25px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .leadspace-front-img-box-{{ section.id }} {
+      width: 286px;
+      height: 300px;
+      top: 345px;
+      left: 45px;
+      border-bottom-right-radius: 20px;
+    }
+  }
+
+  .leadspace-front-img-{{ section.id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+{%- endstyle -%}
+
+<div class="leadspace-section-{{ section.id }}">
+  <div class="leadspace-container-{{ section.id }}">
+    
+    <!-- Cover Image (Back Box) -->
+    <div class="leadspace-cover-{{ section.id }}">
+      <picture>
+        {%- if section.settings.cover_image_mobile != blank -%}
+          <source media="(max-width: 768px)" srcset="{{ section.settings.cover_image_mobile | image_url: width: 768 }}">
+        {%- elsif section.settings.cover_image_desktop != blank -%}
+          <source media="(max-width: 768px)" srcset="{{ section.settings.cover_image_desktop | image_url: width: 768 }}">
+        {%- endif -%}
+        
+        {%- if section.settings.cover_image_desktop != blank -%}
+          <img 
+            src="{{ section.settings.cover_image_desktop | image_url: width: 1440 }}" 
+            alt="{{ section.settings.cover_image_desktop.alt | escape }}"
+            class="leadspace-cover-img-{{ section.id }}"
+            loading="eager"
+            width="1440"
+            height="479"
+          >
+        {%- else -%}
+          <div class="leadspace-cover-placeholder-{{ section.id }}">
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endif -%}
+      </picture>
+    </div>
+
+    <!-- Front Box Card Content -->
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'card' -%}
+        <div class="leadspace-front-box-{{ section.id }}" {{ block.shopify_attributes }}>
+          
+          <!-- Text Heading -->
+          {%- if block.settings.title != blank -%}
+            <h2 class="leadspace-heading-{{ section.id }}">{{ block.settings.title | escape }}</h2>
+          {%- endif -%}
+
+          <!-- Description -->
+          {%- if block.settings.description != blank -%}
+            <p class="leadspace-desc-{{ section.id }}">{{ block.settings.description | escape }}</p>
+          {%- endif -%}
+
+          <!-- CTA Button (Renders only if both text and link are present) -->
+          {%- if block.settings.cta_text != blank and block.settings.cta_link != blank -%}
+            <a href="{{ block.settings.cta_link }}" class="leadspace-btn-{{ section.id }}">
+              <span class="leadspace-btn-text-{{ section.id }}">{{ block.settings.cta_text | escape }}</span>
+            </a>
+          {%- endif -%}
+
+          <!-- Front Image -->
+          <div class="leadspace-front-img-box-{{ section.id }}">
+            {%- if block.settings.image != blank -%}
+              <img 
+                src="{{ block.settings.image | image_url: width: 600 }}" 
+                alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+                class="leadspace-front-img-{{ section.id }}"
+                loading="lazy"
+                width="589"
+                height="625"
+              >
+            {%- else -%}
+              {%- assign leadspace_placeholder_class = 'placeholder-svg leadspace-front-img-' | append: section.id -%}
+              {{ 'image' | placeholder_svg_tag: leadspace_placeholder_class }}
+            {%- endif -%}
+          </div>
+
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Leadspace Section",
+  "tag": "section",
+  "class": "section-leadspace",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "cover_image_desktop",
+      "label": "Cover image (Desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image_mobile",
+      "label": "Cover image (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop bottom padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile bottom padding",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card Block",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Front Card Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "FALL TRENDS"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Lorem ipsum dolor sit amet. In architecto recusandae et odio quisquam quo corporis."
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA Text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "CTA Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Leadspace Section",
+      "blocks": [
+        {
+          "type": "card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

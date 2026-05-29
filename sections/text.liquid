@@ -1,0 +1,64 @@
+<H1>{{ section.settings.footer_linklist_title }}</H1>
+{%- if settings.brand_image != blank -%}
+                        {%- assign brand_image_height = settings.brand_image_width
+                          | divided_by: settings.brand_image.aspect_ratio
+                        -%}
+                        <div
+                          class="footer-block__image-wrapper global-media-settings"
+                          style="max-width: min(100%, {{ settings.brand_image_width }}px);"
+                        >
+                          {{
+                            settings.brand_image
+                            | image_url: width: 1100
+                            | image_tag:
+                              loading: 'lazy',
+                              widths: '50, 100, 150, 200, 300, 400, 550, 800, 1100',
+                              height: brand_image_height,
+                              width: settings.brand_image_width
+                          }}
+                        </div>
+                      {%- endif -%}
+{% schema %}
+{
+    "name":"Text",
+    "tag":"section",
+    "class":"section-sanskriti",
+     "disabled_on": {
+        "groups": ["header", "footer"]
+     },
+     "settings":[
+        {
+            "type": "text",
+            "id": "footer_linklist_title",
+            "label": "Heading",
+            "default": "Quick links"
+        },
+        {
+  "type": "image_picker",
+  "id": "image_with_text_image",
+  "label": "Image"
+},
+      {
+  "type": "color",
+  "id": "body_text",
+  "label": "Body text",
+  "default": "#000000"
+      },
+    {
+  "type": "image_picker",
+  "id": "image_with_text_image_2",
+  "label": "Image 2"
+    },
+{
+  "type": "url",
+  "id": "button_link",
+  "label": "Button link"
+}],
+
+    "presets": [
+        {
+            "name":"Text"
+        }
+    ]
+}
+{% endschema %}
