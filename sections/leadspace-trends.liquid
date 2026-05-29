@@ -87,19 +87,22 @@
   }
 
   .leadspace-heading-main {
-    font-size: 46px;
-    font-weight: 900;
-    line-height: 0.85;
+    font-size: 36px; 
+    font-weight: 800;
+    line-height: 0.95; 
     text-transform: uppercase;
     letter-spacing: -0.02em;
     margin: 0 0 20px 0;
     color: #ffffff;
     font-family: Arial Black, Impact, sans-serif;
+    word-break: keep-all; 
+    overflow-wrap: normal;
   }
 
   @media screen and (min-width: 768px) {
     .leadspace-heading-main {
       font-size: 100px; 
+      line-height: 0.85;
       margin: 0 0 24px 0;
     }
   }
@@ -190,7 +193,6 @@
     </picture>
   </div>
 
-
   <div class="leadspace-content-container">
     {%- for block in section.blocks -%}
       {%- if block.type == 'card' -%}
@@ -209,9 +211,9 @@
               </p>
             {%- endif -%}
 
-            {%- if block.settings.cta_text != blank and block.settings.cta_link != blank -%}
+            {%- if block.settings.cta_text != blank -%}
               <div>
-                <a href="{{ block.settings.cta_link }}" class="leadspace-action-btn">
+                <a href="{{ block.settings.cta_link | default: '#' }}" class="leadspace-action-btn">
                   {{ block.settings.cta_text | escape }}
                 </a>
               </div>
