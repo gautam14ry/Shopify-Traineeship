@@ -1,0 +1,437 @@
+{%- liquid
+  assign section_class = 'leadspace-' | append: section.id
+  assign bg_desktop = section.settings.cover_image_desktop
+  assign bg_mobile = section.settings.cover_image_mobile
+  assign bg_image = bg_desktop | default: bg_mobile
+-%}
+
+{%- style -%}
+  .{{ section_class }} {
+    position: relative;
+    width: 100%;
+    background-color: #FFEDDD;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    min-height: 704px;
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  .{{ section_class }} .ls-bg-photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 429px;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .{{ section_class }} .ls-bg-photo picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .{{ section_class }} .ls-bg-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  .{{ section_class }} .ls-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: {{ section.settings.padding_top_mobile }}px 16px {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  .{{ section_class }} .ls-cover-only {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    min-height: 704px;
+  }
+
+  .{{ section_class }} .ls-card {
+    background-color: #102116;
+    border-radius: 25px;
+    width: 100%;
+    max-width: 331px;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 25px 60px -10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    min-height: 584px;
+  }
+
+  .{{ section_class }} .ls-text {
+    flex: 1;
+    padding: 16px 16px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    z-index: 2;
+color: #ffffff;
+    order: 1;
+  }
+
+  .{{ section_class }} .ls-heading {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    margin: 0 0 14px 0;
+  text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+    font-size: 68px;
+    color: #ffffff;
+  }
+
+  .{{ section_class }} .ls-desc {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #ffffff;
+  margin: 0;
+    font-weight: 400;
+    max-width: 280px;
+  }
+
+  .{{ section_class }} .ls-btn {
+    display: none;
+  }
+
+  .{{ section_class }} .ls-btn:hover {
+    background-color: #f0f0f0;
+  }
+
+  .{{ section_class }} .ls-image-wrap {
+    position: relative;
+    width: 100%;
+    height: 340px;
+    overflow: hidden;
+    flex-shrink: 0;
+    order: 3;
+  }
+
+  .{{ section_class }} .ls-image-wrap img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .{{ section_class }} .ls-btn-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    color: #000000;
+  transform: translateX(-50%);
+
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    height: 73px;
+    width: 229px;
+    border-radius: 56px;
+    text-decoration: none;
+    box-shadow: 4px 8px 12px 0px rgba(0, 0, 0, 0.25);
+    transition: background-color 0.2s ease;
+    z-index: 3;
+    white-space: nowrap;
+  }
+
+  .{{ section_class }} .ls-btn-overlay:hover {
+    background-color: #f0f0f0;
+  }
+
+  @media screen and (min-width: 768px) {
+    .{{ section_class }} {
+      min-height: 876px;
+padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+
+    .{{ section_class}} .ls-bg-photo {
+      height: 479px;
+    }
+
+    .{{ section_class}} .ls-content {
+      padding: {{ section.settings.padding_top_desktop }}px 136px {{ section.settings.padding_bottom_desktop }}px;
+      align-items: center;
+    }
+    .{{ section_class }} .ls-cover-only {
+      min-height: 876px;
+    }
+
+    .{{section_class }} .ls-card {
+      border-radius: 20px;
+      max-width: 1168px;
+      min-height: 634px;
+      flex-direction: row;
+
+      align-items: flex-end;
+      overflow: visible;
+      margin: 0 auto;
+    }
+
+    .{{ section_class }} .ls-text {
+      padding: 40px 0 40px 48px;
+      justify-content: flex-end;
+      order: 1;
+    }
+
+    .{{section_class }} .ls-heading {
+      font-size: 120px;
+      line-height: 0.92;
+      margin: 0 0 24px 0;
+    }
+
+    
+    .{{ section_class }} .ls-desc {
+      font-size: 20px;
+      line-height: 1.4;
+      max-width: 380px;
+      margin: 0 0 32px 0;
+    }
+    .{{ section_class }} .ls-btn {
+      display: inline-flex;
+      width: 351px;
+      height: 82px;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffffff;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      color: #000000;
+      font-size: 18px;
+
+      border-radius: 56px;
+      text-decoration: none;
+      box-shadow: 4px 8px 12px 0px rgba(0, 0, 0, 0.25);
+      transition: background-color 0.2s ease;
+      flex-shrink: 0;
+      order: 3;
+    }
+
+    .{{ section_class }} .ls-image-wrap {
+      position: static;
+      width: 460px;
+      height: 700px;
+
+      overflow: visible;
+      align-self: flex-end;
+      flex-shrink: 0;
+      order: 2;
+  
+      margin-bottom: -1px;
+    }
+
+    .{{ section_class }} .ls-image-wrap img {
+      object-fit: contain;
+      object-position: bottom center;
+    }
+
+    .{{ section_class }} .ls-btn-overlay {
+      display: none;
+    }
+  }
+{%- endstyle -%}
+
+<section class="{{ section_class }}">
+  {%- if bg_image != blank -%}
+
+    <div class="ls-bg-photo">
+      <picture>
+        {%- if bg_mobile != blank -%}
+          <source media="(max-width: 767px)" srcset="{{ bg_mobile | image_url: width: 800 }}">
+        {%- endif -%}
+        {%- if bg_desktop != blank -%}
+          <source
+            media="(min-width: 768px)"
+
+            srcset="{{ bg_desktop | image_url: width: 1600 }}"
+
+          >
+        {%- elsif bg_mobile != blank -%}
+          <source
+            media="(min-width: 768px)"
+            srcset="{{ bg_mobile | image_url: width: 1600 }}"
+          >
+        {%- endif -%}
+        {{ bg_image | image_url: width: 1600 | image_tag: loading: 'eager', alt: 'Background' }}
+
+      </picture>
+    </div>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    {%- assign card_block = section.blocks | where: 'type', 'card' | first -%}
+    <div class="ls-content">
+
+      {%- if card_block != blank -%}
+        <div class="ls-card" {{ card_block.shopify_attributes }}>
+          <div class="ls-text">
+            {%- if card_block.settings.title != blank -%}
+
+              <h2 class="ls-heading">{{ card_block.settings.title }}</h2>
+            {%- endif -%}
+
+            {%- if card_block.settings.description != blank -%}
+
+              <p class="ls-desc">{{ card_block.settings.description }}</p>
+
+            {%- endif -%}
+            {%- if card_block.settings.cta_text != blank and card_block.settings.cta_link != blank -%}
+              <a href="{{ card_block.settings.cta_link }}" class="ls-btn">{{ card_block.settings.cta_text }}</a>
+            {%- endif -%}
+          </div>
+
+          {%- if card_block.settings.card_image != blank -%}
+
+            <div class="ls-image-wrap">
+              {{
+                card_block.settings.card_image
+                | image_url: width: 700
+                | image_tag: loading: 'lazy', alt: card_block.settings.title
+
+              }}
+              {%- if card_block.settings.cta_text != blank and card_block.settings.cta_link != blank -%}
+                <a href="{{ card_block.settings.cta_link }}" class="ls-btn-overlay">
+
+                  {{- card_block.settings.cta_text -}}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  {%- else -%}
+    <div class="ls-cover-only"></div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Leadspace",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "cover_image_desktop",
+      "label": "Cover Image (Desktop)"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "cover_image_mobile",
+      "label": "Cover Image (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Desktop Top Padding",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 160
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Desktop Bottom Padding",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Mobile Top Padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Mobile Bottom Padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "max_blocks": 1,
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card Image"
+        },
+
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Button Text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Leadspace",
+      "blocks": [{ "type": "card" }]
+    }
+  ]
+}
+{% endschema %}

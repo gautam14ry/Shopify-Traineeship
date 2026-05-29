@@ -12,48 +12,44 @@
     </h1>
   {% endif %}
 
-  {% comment %} {%- if section.settings.image_with_text_image != blank -%}
-    {{
-      section.settings.image_with_text_image
-      | image_url: width: 150
-      | image_tag: loading: 'lazy', class: 'image-with-text__image', width: 150, height: 150
-    }}
-  {%- else -%}
-    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-  {%- endif -%} {% endcomment %}
+  {% comment %}
+    {%- if section.settings.image_with_text_image != blank -%}
+      {{
+        section.settings.image_with_text_image
+        | image_url: width: 150
+        | image_tag: loading: 'lazy', class: 'image-with-text__image', width: 150, height: 150
+      }}
+    {%- else -%}
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  {% endcomment %}
 
   {% if section.settings.button_link != blank %}
     <a href="{{ section.settings.button_link }}" class="btn"> Shop now </a>
   {% endif %}
 
   {% for block in section.blocks %}
-  {% case block.type %}
+    {% case block.type %}
+      {% when 'button' %}
+        <p>This is a button block</p>
 
-    {% when 'button' %}
-      <p>This is a button block</p>
+        {% render 'button', button_label: block.settings.button_label, button_link: block.settings.button_link %}
+        {% render 'button', button_label: block.settings.button_label, button_link: block.settings.button_link %}
 
-      {% render 'button', button_label: block.settings.button_label, button_link: block.settings.button_link %}
-      {% render 'button', button_label: block.settings.button_label, button_link: block.settings.button_link %}
+      {% when 'image' %}
+        <p>This is an image block</p>
 
-    {% when 'image' %}
-      <p>This is an image block</p>
-
-      {%- if block.settings.image != blank -%}
-        {{
-          block.settings.image
-          | image_url: width: 150
-          | image_tag:
-            loading: 'lazy',
-            class: 'image-with-text__image',
-            width: 150,
-            height: 150
-        }}
-      {%- else -%}
-        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-      {%- endif -%}
-
-  {% endcase %}
-{% endfor %}
+        {%- if block.settings.image != blank -%}
+          {{
+            block.settings.image
+            | image_url: width: 150
+            | image_tag: loading: 'lazy', class: 'image-with-text__image', width: 150, height: 150
+          }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+    {% endcase %}
+  {% endfor %}
 </div>
 
 {% schema %}
@@ -75,7 +71,7 @@
       "type": "textarea",
       "id": "home_welcome_message",
       "label": "Welcome message",
-      "default": "Welcome to my shop!"
+      "default": "testing"
     },
     {
       "type": "color",
@@ -145,19 +141,18 @@
     }
   ],
 
-"presets": [
-  {
-    "name": "Text",
-    "blocks": [
-      {
-        
-        "type": "button"
-      },
-      {
-        "type": "image"
-      }
-    ]
-  }
-]
+  "presets": [
+    {
+      "name": "Text",
+      "blocks": [
+        {
+          "type": "button"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
