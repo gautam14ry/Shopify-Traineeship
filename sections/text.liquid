@@ -1,0 +1,92 @@
+<h1 style="color: {{ section.settings.body_text }}">{{ section.settings['welcome-message'] }}</h1>
+
+{% if section.settings.button_link != blank %}
+  <a href="section.settings.button_link">Press</a>
+{% endif %}
+{% schema %}
+{
+  "name": "Text",
+  "tag": "section",
+  "class": "section-surja",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "button_link"
+        }
+      ]
+    }
+  ],
+
+  "settings": [
+    {
+      "type": "text",
+      "id": "welcome-message",
+      "label": "Welcome Message",
+      "default": "Welcome"
+    },
+    {
+      "type": "color",
+      "id": "body_text",
+      "label": "Body text",
+      "default": "#000000"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_with_text_image",
+      "label": "Image"
+    },
+    {
+      "type": "richtext",
+      "id": "paragraph",
+      "label": "Paragraph"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical alignment",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "middle",
+          "label": "Middle"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "middle"
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Text"
+    }
+  ]
+}
+{% endschema %}

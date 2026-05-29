@@ -1,0 +1,33 @@
+{% if block.settings.card_url != blank %}
+  {% assign card_tag = 'a' %}
+{% else %}
+  {% assign card_tag = 'div' %}
+{% endif %}
+<{{ card_tag }}
+  {% if block.settings.card_url != blank %}
+    href="{{ block.settings.card_url }}"
+  {% endif %}
+  class="slider__card"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.card_image != blank %}
+    <div class="slider__card-image-wrapper">
+      {{ block.settings.card_image | image_url: width: 400 | image_tag: class: 'slider__card-image', alt: block.settings.card_image.alt }}
+    </div>
+  {% endif %}
+
+  <div class="slider__card-info">
+    {% if block.settings.card_tag != blank %}
+      <span class="slider__card-tag">{{ block.settings.card_tag }}</span>
+    {% endif %}
+
+    {% if block.settings.card_price != blank %}
+      <span class="slider__card-price">{{ block.settings.card_price }}</span>
+    {% endif %}
+
+    {% if block.settings.card_title != blank %}
+      <p class="slider__card-title">{{ block.settings.card_title }}</p>
+    {% endif %}
+  </div>
+
+</{{ card_tag }}>
