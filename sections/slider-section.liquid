@@ -62,7 +62,7 @@
       border-radius: 25px;
       padding: 40px 30px;
       gap: 24px;
-      box-shadow: 0px 210px 73px rgba(0,0,0,0.04), 0px 76.653px 26.646px rgba(0,0,0,0.03), 0px 37.214px 12.936px rgba(0,0,0,0.02), 0px 18.243px 6.342px rgba(0,0,0,0.02), 0px 7.213px 2.507px rgba(0,0,0,0.01);
+      box-shadow: 0px 25px 60px -10px rgba(0, 0, 0, 0.15);
     }
   }
 
@@ -151,31 +151,78 @@
   /* Carousel Scroll Container */
   .slider-track-wrapper-{{ section.id }} {
     width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Flex Carousel Mode Track */
+  .slider-track-carousel-{{ section.id }} {
+    display: flex;
+    gap: 16px;
+    width: 100%;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    box-sizing: border-box;
   }
 
-  .slider-track-wrapper-{{ section.id }}::-webkit-scrollbar {
+  .slider-track-carousel-{{ section.id }}::-webkit-scrollbar {
     display: none;
   }
 
-  /* Layout Container */
-  .slider-track-{{ section.id }} {
-    display: flex;
-    gap: 8px;
+  /* Grid Layout Track */
+  .slider-track-grid-{{ section.id }} {
+    display: grid;
+    gap: 16px;
     width: 100%;
     box-sizing: border-box;
   }
 
-  /* Premium Card Styles inside the section */
-  .slider-card-item {
+  @media screen and (min-width: 991px) {
+    .slider-track-grid-{{ section.id }} {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 24px;
+    }
+  }
+  @media screen and (max-width: 990px) and (min-width: 769px) {
+    .slider-track-grid-{{ section.id }} {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .slider-track-grid-{{ section.id }} {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      gap: 16px;
+    }
+  }
+
+  /* Card Item Sizing based on layout mode */
+  .slider-track-carousel-{{ section.id }} .slider-card-item {
     scroll-snap-align: start;
     flex-shrink: 0;
-    width: 264px;
+    width: 85%;
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 990px) {
+    .slider-track-carousel-{{ section.id }} .slider-card-item {
+      width: calc(50% - 12px);
+    }
+  }
+  @media screen and (min-width: 991px) {
+    .slider-track-carousel-{{ section.id }} .slider-card-item {
+      width: calc(25% - 18px);
+    }
+  }
+
+  .slider-track-grid-{{ section.id }} .slider-card-item {
+    width: 100%;
+  }
+
+  /* Premium Card Styles inside the section */
+  .slider-card-item {
     background-color: #FFFFFF;
     border-radius: 16px;
     overflow: hidden;
@@ -185,19 +232,20 @@
     color: #000000;
     box-sizing: border-box;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0px 210px 73px rgba(0,0,0,0.04), 0px 76.653px 26.646px rgba(0,0,0,0.03), 0px 37.214px 12.936px rgba(0,0,0,0.02), 0px 18.243px 6.342px rgba(0,0,0,0.02), 0px 7.213px 2.507px rgba(0,0,0,0.01);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
   }
 
   /* Hover states for clickable cards */
   a.slider-card-item:hover {
     transform: translateY(-4px);
+    box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.1);
   }
 
   /* Image Box Wrapper */
   .slider-card-image-wrapper {
     position: relative;
-    width: 264px;
-    height: 336px;
+    width: 100%;
+    aspect-ratio: 4 / 5;
     overflow: hidden;
     background-color: #F8F5F0;
   }
@@ -230,13 +278,13 @@
   /* Content info box */
   .slider-card-content {
     box-sizing: border-box;
-    width: 264px;
-    height: 129px;
+    width: 100%;
     padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 11px;
     background-color: #FFFFFF;
+    flex-grow: 1;
   }
 
   .slider-card-meta {
@@ -330,29 +378,28 @@
       const container = document.getElementById('slider-' + sectionId);
       if (!container) return;
 
-      const wrapper = container.querySelector('.slider-track-wrapper-' + sectionId);
+      const track = container.querySelector('.slider-track-' + sectionId);
       const prevBtn = container.querySelector('.slider-prev-btn');
       const nextBtn = container.querySelector('.slider-next-btn');
 
-      if (!wrapper) return;
+      if (!track) return;
 
       // If navigation buttons aren't rendered (blocks <= 4), exit gracefully
       if (!prevBtn || !nextBtn) return;
 
       function getScrollAmount() {
-        const card = wrapper.querySelector('.slider-card-item');
+        const card = track.querySelector('.slider-card-item');
         if (card) {
-          const track = container.querySelector('.slider-track-' + sectionId);
           const style = window.getComputedStyle(track);
-          const gap = parseInt(style.gap) || 24;
+          const gap = parseInt(style.gap) || 16;
           return card.offsetWidth + gap;
         }
         return 300;
       }
 
       function updateButtons() {
-        const scrollLeft = wrapper.scrollLeft;
-        const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
+        const scrollLeft = track.scrollLeft;
+        const maxScroll = track.scrollWidth - track.clientWidth;
         
         // Use a small tolerance margin of 10px to account for browser sub-pixel rounding
         prevBtn.disabled = scrollLeft <= 10;
@@ -361,16 +408,16 @@
 
       prevBtn.addEventListener('click', function() {
         const scrollAmt = getScrollAmount();
-        wrapper.scrollBy({ left: -scrollAmt, behavior: 'smooth' });
+        track.scrollBy({ left: -scrollAmt, behavior: 'smooth' });
       });
 
       nextBtn.addEventListener('click', function() {
         const scrollAmt = getScrollAmount();
-        wrapper.scrollBy({ left: scrollAmt, behavior: 'smooth' });
+        track.scrollBy({ left: scrollAmt, behavior: 'smooth' });
       });
 
       // Synchronize scroll gestures and wheel inputs to toggle button accessibility
-      wrapper.addEventListener('scroll', updateButtons, { passive: true });
+      track.addEventListener('scroll', updateButtons, { passive: true });
 
       // Re-evaluate on window resize
       let resizeTimer;
@@ -400,10 +447,10 @@
       if (event.detail.sectionId === '{{ section.id }}') {
         const blockId = event.detail.blockId;
         const blockElement = document.querySelector('[data-block-id="' + blockId + '"]');
-        const wrapper = document.querySelector('.slider-track-wrapper-{{ section.id }}');
-        if (blockElement && wrapper) {
-          const offsetLeft = blockElement.offsetLeft - wrapper.offsetLeft;
-          wrapper.scrollTo({ left: offsetLeft, behavior: 'smooth' });
+        const track = document.querySelector('.slider-track-{{ section.id }}');
+        if (blockElement && track) {
+          const offsetLeft = blockElement.offsetLeft - track.offsetLeft;
+          track.scrollTo({ left: offsetLeft, behavior: 'smooth' });
         }
       }
     });

@@ -1,25 +1,37 @@
+{%- liquid
+  assign card_block = section.blocks | where: 'type', 'card' | first
+-%}
+
 {%- style -%}
   .leadspace-section-{{ section.id }} {
     position: relative;
     width: 100%;
     background-color: #ffeddd; /* Pale peach background */
-    overflow: hidden;
     box-sizing: border-box;
+    overflow: hidden;
   }
 
-  /* Responsive Spacing from Settings */
+  /* Responsive Spacing & Minimum Heights */
   @media screen and (min-width: 769px) {
     .leadspace-section-{{ section.id }} {
       padding-top: {{ section.settings.padding_top_desktop }}px;
       padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
-      height: 876px;
+      {%- if card_block != blank -%}
+        min-height: 876px;
+      {%- else -%}
+        min-height: 479px;
+      {%- endif -%}
     }
   }
   @media screen and (max-width: 768px) {
     .leadspace-section-{{ section.id }} {
       padding-top: {{ section.settings.padding_top_mobile }}px;
       padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
-      height: 704px;
+      {%- if card_block != blank -%}
+        min-height: 704px;
+      {%- else -%}
+        min-height: 429px;
+      {%- endif -%}
     }
   }
 
@@ -30,6 +42,28 @@
     margin: 0 auto;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  @media screen and (min-width: 769px) {
+    .leadspace-container-{{ section.id }} {
+      {%- if card_block != blank -%}
+        padding-top: 162px;
+        padding-bottom: 80px;
+      {%- endif -%}
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .leadspace-container-{{ section.id }} {
+      {%- if card_block != blank -%}
+        padding-top: 64px;
+        padding-bottom: 56px;
+        padding-left: 16px;
+        padding-right: 16px;
+      {%- endif -%}
+    }
   }
 
   /* Cover Image / Back Box */
@@ -38,18 +72,25 @@
     top: 0;
     left: 0;
     width: 100%;
-    overflow: hidden;
     z-index: 1;
+    overflow: hidden;
   }
   @media screen and (min-width: 769px) {
     .leadspace-cover-{{ section.id }} {
-      height: 479px;
+      {%- if card_block != blank -%}
+        height: 479px;
+      {%- else -%}
+        height: 100%;
+      {%- endif -%}
     }
   }
   @media screen and (max-width: 768px) {
     .leadspace-cover-{{ section.id }} {
-      height: 429px;
-      width: 100%;
+      {%- if card_block != blank -%}
+        height: 429px;
+      {%- else -%}
+        height: 100%;
+      {%- endif -%}
     }
   }
 
@@ -67,108 +108,115 @@
     display: block;
   }
 
-  /* Front Box */
+  /* Front Box (Card Container) */
   .leadspace-front-box-{{ section.id }} {
-    position: absolute;
     background-color: #102116; /* Dark Green from Figma */
     border-radius: 25px;
     z-index: 2;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
   }
 
   @media screen and (min-width: 769px) {
     .leadspace-front-box-{{ section.id }} {
-      width: 1168px;
-      height: 634px;
-      top: 162px;
-      left: 136px;
+      max-width: 1168px;
+      min-height: 634px;
+      flex-direction: row;
+      align-items: flex-end;
+      overflow: visible;
     }
   }
   @media screen and (max-width: 768px) {
     .leadspace-front-box-{{ section.id }} {
-      width: 331px;
-      height: 584px;
-      top: 64px;
-      left: 0;
+      max-width: 331px;
+      min-height: 584px;
+      flex-direction: column;
+      align-items: stretch;
     }
   }
 
-  /* Fall Trends Heading */
+  /* Text Wrapper Inside Card */
+  .leadspace-text-col-{{ section.id }} {
+    display: flex;
+    flex-direction: column;
+    color: #FFFFFF;
+    box-sizing: border-box;
+  }
+  @media screen and (min-width: 769px) {
+    .leadspace-text-col-{{ section.id }} {
+      flex: 1;
+      padding: 60px 48px;
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .leadspace-text-col-{{ section.id }} {
+      padding: 32px 24px 0 24px;
+      align-items: flex-start;
+    }
+  }
+
+  /* Headings & Descriptions */
   .leadspace-heading-{{ section.id }} {
-    position: absolute;
     color: #FFFFFF;
     font-family: "Helvetica Neue", Arial, sans-serif;
     font-weight: 700;
     text-transform: uppercase;
-    margin: 0;
-    z-index: 3;
-    pointer-events: none;
+    margin: 0 0 24px 0;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
   }
   @media screen and (min-width: 769px) {
     .leadspace-heading-{{ section.id }} {
-      width: 1062px;
-      height: 322px;
-      top: 77px;
-      left: 48px;
-      font-size: 160px;
-      line-height: 150px;
-      letter-spacing: 0%;
+      font-size: 120px;
     }
   }
   @media screen and (max-width: 768px) {
     .leadspace-heading-{{ section.id }} {
-      width: 295px;
-      height: 154px;
-      top: 93px;
-      left: 15px;
-      font-size: 80px;
-      line-height: 80px;
-      letter-spacing: 0%;
+      font-size: 68px;
+      margin-bottom: 16px;
     }
   }
 
-  /* Description (Lorem ipsum) */
   .leadspace-desc-{{ section.id }} {
-    position: absolute;
     color: #FFFFFF;
     font-family: "Helvetica Neue", Arial, sans-serif;
     font-weight: 400;
     margin: 0;
-    z-index: 3;
   }
   @media screen and (min-width: 769px) {
     .leadspace-desc-{{ section.id }} {
-      width: 512px;
-      height: 71px;
-      top: 414px;
-      left: 72px;
       font-size: 24px;
-      line-height: 120%;
+      line-height: 1.25;
+      max-width: 512px;
+      margin-bottom: 32px;
     }
   }
   @media screen and (max-width: 768px) {
     .leadspace-desc-{{ section.id }} {
-      width: 295px;
-      height: 81px;
-      top: 264px;
-      left: 15px;
-      font-size: 21px;
-      line-height: 120%;
+      font-size: 18px;
+      line-height: 1.3;
+      max-width: 280px;
+      margin-bottom: 24px;
     }
   }
 
-  /* Shop Now Button */
+  /* Shop Now Button (Desktop Inline) */
   .leadspace-btn-{{ section.id }} {
-    position: absolute;
     background-color: #FFFFFF;
     color: #0F2216;
     border-radius: 56px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    z-index: 4;
     transition: transform 0.2s ease, background-color 0.2s ease;
+    box-sizing: border-box;
+    box-shadow: 4px 8px 12px rgba(0, 0, 0, 0.25);
   }
   .leadspace-btn-{{ section.id }}:hover {
     background-color: #F3ECE5;
@@ -176,50 +224,46 @@
   }
   .leadspace-btn-text-{{ section.id }} {
     font-family: "Helvetica Neue", Arial, sans-serif;
-    font-weight: 500;
-    font-size: 27px;
-    line-height: 100%;
+    font-weight: 700;
     text-align: center;
   }
   @media screen and (min-width: 769px) {
     .leadspace-btn-{{ section.id }} {
-      width: 351.43px;
-      height: 82.37px;
-      top: 520px;
-      left: 72px;
+      display: inline-flex;
+      width: 220px;
+      height: 52px;
+    }
+    .leadspace-btn-text-{{ section.id }} {
+      font-size: 16px;
     }
   }
   @media screen and (max-width: 768px) {
     .leadspace-btn-{{ section.id }} {
-      width: 229px;
-      height: 73px;
-      top: 562px;
-      left: 70px;
+      display: none;
     }
   }
 
-  /* Front Image Box */
+  /* Front Image Wrapper */
   .leadspace-front-img-box-{{ section.id }} {
-    position: absolute;
+    position: relative;
     overflow: hidden;
-    z-index: 2;
+    box-sizing: border-box;
   }
   @media screen and (min-width: 769px) {
     .leadspace-front-img-box-{{ section.id }} {
-      width: 589px;
+      width: 480px;
       height: 625px;
-      top: 9px;
-      left: 579px;
+      flex-shrink: 0;
       border-bottom-right-radius: 25px;
+      align-self: flex-end;
     }
   }
   @media screen and (max-width: 768px) {
     .leadspace-front-img-box-{{ section.id }} {
-      width: 286px;
-      height: 300px;
-      top: 345px;
-      left: 45px;
+      width: 100%;
+      height: 340px;
       border-bottom-right-radius: 20px;
+      margin-top: auto;
     }
   }
 
@@ -228,6 +272,50 @@
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  /* Front Image Placeholder */
+  .leadspace-front-placeholder-{{ section.id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #1a2f22;
+    display: block;
+  }
+
+  /* Shop Now Button (Mobile Image Overlay) */
+  .leadspace-btn-overlay-{{ section.id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #FFFFFF;
+    color: #0F2216;
+    border-radius: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 4px 8px 12px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    z-index: 3;
+    white-space: nowrap;
+    box-sizing: border-box;
+    width: 170px;
+    height: 48px;
+  }
+  .leadspace-btn-overlay-{{ section.id }}:hover {
+    background-color: #F3ECE5;
+    transform: translateX(-50%) translateY(-2px);
+  }
+  .leadspace-btn-overlay-text-{{ section.id }} {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  @media screen and (min-width: 769px) {
+    .leadspace-btn-overlay-{{ section.id }} {
+      display: none;
+    }
   }
 {%- endstyle -%}
 
@@ -261,47 +349,54 @@
     </div>
 
     <!-- Front Box Card Content -->
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'card' -%}
-        <div class="leadspace-front-box-{{ section.id }}" {{ block.shopify_attributes }}>
-          
-          <!-- Text Heading -->
-          {%- if block.settings.title != blank -%}
-            <h2 class="leadspace-heading-{{ section.id }}">{{ block.settings.title | escape }}</h2>
+    {%- if card_block != blank -%}
+      <div class="leadspace-front-box-{{ section.id }}" {{ card_block.shopify_attributes }}>
+        
+        <!-- Text Content Column -->
+        <div class="leadspace-text-col-{{ section.id }}">
+          {%- if card_block.settings.title != blank -%}
+            <h2 class="leadspace-heading-{{ section.id }}">{{ card_block.settings.title | escape }}</h2>
           {%- endif -%}
 
-          <!-- Description -->
-          {%- if block.settings.description != blank -%}
-            <p class="leadspace-desc-{{ section.id }}">{{ block.settings.description | escape }}</p>
+          {%- if card_block.settings.description != blank -%}
+            <p class="leadspace-desc-{{ section.id }}">{{ card_block.settings.description | escape }}</p>
           {%- endif -%}
 
           <!-- CTA Button (Renders only if both text and link are present) -->
-          {%- if block.settings.cta_text != blank and block.settings.cta_link != blank -%}
-            <a href="{{ block.settings.cta_link }}" class="leadspace-btn-{{ section.id }}">
-              <span class="leadspace-btn-text-{{ section.id }}">{{ block.settings.cta_text | escape }}</span>
+          {%- if card_block.settings.cta_text != blank and card_block.settings.cta_link != blank -%}
+            <a href="{{ card_block.settings.cta_link }}" class="leadspace-btn-{{ section.id }}">
+              <span class="leadspace-btn-text-{{ section.id }}">{{ card_block.settings.cta_text | escape }}</span>
             </a>
           {%- endif -%}
-
-          <!-- Front Image -->
-          <div class="leadspace-front-img-box-{{ section.id }}">
-            {%- if block.settings.image != blank -%}
-              <img 
-                src="{{ block.settings.image | image_url: width: 600 }}" 
-                alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
-                class="leadspace-front-img-{{ section.id }}"
-                loading="lazy"
-                width="589"
-                height="625"
-              >
-            {%- else -%}
-              {%- assign leadspace_placeholder_class = 'placeholder-svg leadspace-front-img-' | append: section.id -%}
-              {{ 'image' | placeholder_svg_tag: leadspace_placeholder_class }}
-            {%- endif -%}
-          </div>
-
         </div>
-      {%- endif -%}
-    {%- endfor -%}
+
+        <!-- Front Image Column -->
+        <div class="leadspace-front-img-box-{{ section.id }}">
+          {%- if card_block.settings.image != blank -%}
+            <img 
+              src="{{ card_block.settings.image | image_url: width: 600 }}" 
+              alt="{{ card_block.settings.image.alt | default: card_block.settings.title | escape }}"
+              class="leadspace-front-img-{{ section.id }}"
+              loading="lazy"
+              width="480"
+              height="625"
+            >
+          {%- else -%}
+            <div class="leadspace-front-placeholder-{{ section.id }}">
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- endif -%}
+
+          <!-- CTA Button Overlay (Mobile only, renders only if both text and link are present) -->
+          {%- if card_block.settings.cta_text != blank and card_block.settings.cta_link != blank -%}
+            <a href="{{ card_block.settings.cta_link }}" class="leadspace-btn-overlay-{{ section.id }}">
+              <span class="leadspace-btn-overlay-text-{{ section.id }}">{{ card_block.settings.cta_text | escape }}</span>
+            </a>
+          {%- endif -%}
+        </div>
+
+      </div>
+    {%- endif -%}
 
   </div>
 </div>
@@ -329,7 +424,7 @@
       "type": "range",
       "id": "padding_top_desktop",
       "min": 0,
-      "max": 100,
+      "max": 200,
       "step": 4,
       "unit": "px",
       "label": "Desktop top padding",
@@ -339,7 +434,7 @@
       "type": "range",
       "id": "padding_bottom_desktop",
       "min": 0,
-      "max": 100,
+      "max": 200,
       "step": 4,
       "unit": "px",
       "label": "Desktop bottom padding",
@@ -349,7 +444,7 @@
       "type": "range",
       "id": "padding_top_mobile",
       "min": 0,
-      "max": 100,
+      "max": 120,
       "step": 4,
       "unit": "px",
       "label": "Mobile top padding",
@@ -359,7 +454,7 @@
       "type": "range",
       "id": "padding_bottom_mobile",
       "min": 0,
-      "max": 100,
+      "max": 120,
       "step": 4,
       "unit": "px",
       "label": "Mobile bottom padding",
