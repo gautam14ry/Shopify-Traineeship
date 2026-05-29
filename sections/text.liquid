@@ -1,0 +1,158 @@
+{% style %}
+  #text-{{ section.id }} {
+    text-align: {{ section.settings.vertical_alignment }};
+    color: {{ section.settings.body_text }};
+  }
+{% endstyle %}
+
+<div class="text" id="text-{{ section.id }}">
+  {% if section.settings.home_welcome_message != blank %}
+    <h1 class="custom-heading">
+      {{ section.settings.home_welcome_message }}
+    </h1>
+  {% endif %}
+
+  {% comment %}
+    {%- if section.settings.image_with_text_image != blank -%}
+      {{
+        section.settings.image_with_text_image
+        | image_url: width: 150
+        | image_tag: loading: 'lazy', class: 'image-with-text__image', width: 150, height: 150
+      }}
+    {%- else -%}
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  {% endcomment %}
+
+  {% if section.settings.button_link != blank %}
+    <a href="{{ section.settings.button_link }}" class="btn"> Shop now </a>
+  {% endif %}
+
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'button' %}
+        <p>This is a button block</p>
+
+        {% render 'button', button_label: block.settings.button_label, button_link: block.settings.button_link %}
+        {% render 'button', button_label: block.settings.button_label, button_link: block.settings.button_link %}
+
+      {% when 'image' %}
+        <p>This is an image block</p>
+
+        {%- if block.settings.image != blank -%}
+          {{
+            block.settings.image
+            | image_url: width: 150
+            | image_tag: loading: 'lazy', class: 'image-with-text__image', width: 150, height: 150
+          }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+    {% endcase %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Text",
+  "tag": "section",
+  "class": "section-arjabi",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "home_welcome_message",
+      "label": "Welcome message",
+      "default": "testing"
+    },
+    {
+      "type": "color",
+      "id": "body_text",
+      "label": "Body text",
+      "default": "#000000"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_with_text_image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Text",
+      "blocks": [
+        {
+          "type": "button"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
