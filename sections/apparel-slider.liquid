@@ -1,265 +1,296 @@
 {%- style -%}
-  .section-space-{{ section.id }} {
+  .apparel-{{ section.id }} {
     background-color: #FFEDDD;
     padding-top: {{ section.settings.padding_top_mobile }}px;
     padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
   }
 
   @media screen and (min-width: 768px) {
-    .section-space-{{ section.id }} {
+    .apparel-{{ section.id }} {
       padding-top: {{ section.settings.padding_top_desktop }}px;
       padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
     }
   }
 
-  .apparel-slider-container {
-    max-width: 1320px;
+  .apparel-{{ section.id }} .as-wrap {
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 16px;
   }
 
-  .apparel-slider-inner-box {
-    background-color: #A07636;
-    border-radius: 28px;
-    padding: 32px 16px;
-    position: relative;
-  }
-
   @media screen and (min-width: 768px) {
-    .apparel-slider-inner-box {
-      padding: 48px 40px;
+    .apparel-{{ section.id }} .as-wrap {
+      padding: 0 40px;
     }
   }
 
-  .apparel-slider-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
+  .apparel-{{ section.id }} .as-title-outside {
+    display: block;
+    color: #000000;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
   }
 
-  .apparel-slider-heading {
+  @media screen and (min-width: 768px) {
+    .apparel-{{ section.id }} .as-title-outside {
+      display: none;
+    }
+  }
+
+  .apparel-{{ section.id }} .as-box {
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  @media screen and (min-width: 768px) {
+    .apparel-{{ section.id }} .as-box {
+      background-color: #a07636;
+      border-radius: 25px;
+      padding: 40px 16px;
+    }
+  }
+
+  .apparel-{{ section.id }} .as-header {
+    display: none;
+    position: relative;
+    z-index: 3;
+  }
+
+  @media screen and (min-width: 768px) {
+    .apparel-{{ section.id }} .as-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding: 0 8px;
+    }
+  }
+
+  .apparel-{{ section.id }} .as-title {
     color: #ffffff;
-    font-size: 24px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 28px;
     font-weight: 700;
     margin: 0;
   }
 
-  @media screen and (min-width: 768px) {
-    .apparel-slider-heading {
-      font-size: 32px;
-    }
-  }
-
-  .apparel-slider-nav {
+  .apparel-{{ section.id }} .as-arrows {
     display: flex;
     gap: 8px;
   }
 
-  .apparel-slider-arrow {
+  .apparel-{{ section.id }} .as-arrow {
     width: 36px;
     height: 36px;
-    border-radius: 50%;
-    background-color: #ffffff;
-    border: none;
+    border-radius: 1000px;
+    background: #ffffff !important;
+    border: none !important;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.2s;
+    flex-shrink: 0;
     padding: 0;
+    position: relative;
+    z-index: 2;
+    -webkit-appearance: none;
+    appearance: none;
   }
 
-  .apparel-slider-arrow:disabled {
+  .apparel-{{ section.id }} .as-arrow svg {
+    display: block;
+  }
+
+  .apparel-{{ section.id }} .as-arrow:disabled {
     opacity: 0.4;
-    cursor: not-allowed;
+    cursor: default;
   }
 
-  .apparel-slider-arrow svg {
-    width: 16px;
-    height: 16px;
-    fill: #000000;
-  }
-
-  .apparel-layout-engine {
+  .apparel-{{ section.id }} .as-track {
     display: flex;
-    gap: 16px;
-    width: 100%;
-  }
-
-  .apparel-layout-engine.layout-static-grid {
-    display: grid;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-
-  @media screen and (min-width: 480px) {
-    .apparel-layout-engine.layout-static-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media screen and (min-width: 992px) {
-    .apparel-layout-engine.layout-static-grid {
-      grid-template-columns: repeat({{ section.blocks.size }}, minmax(0, 1fr));
-    }
-  }
-
-  .apparel-layout-engine.layout-fluid-slider {
+    gap: 12px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
   }
 
-  .apparel-layout-engine.layout-fluid-slider::-webkit-scrollbar {
+  .apparel-{{ section.id }} .as-track::-webkit-scrollbar {
     display: none;
   }
 
-  .custom-slider-card-wrapper {
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
+  .apparel-{{ section.id }} .as-track .as-card {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
+    min-width: 0;
+  }
+
+  @media screen and (min-width: 768px) {
+    .apparel-{{ section.id }} .as-track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+
+    .apparel-{{ section.id }} .as-track .as-card {
+      flex: 0 0 calc(25% - 18px);
+      scroll-snap-align: start;
+      min-width: 0;
+    }
+  }
+
+  .apparel-{{ section.id }} .as-card {
+    background: #ffffff;
+    border-radius: 8px;
     overflow: hidden;
     text-decoration: none;
     color: #000000;
-  }
-
-  .apparel-layout-engine.layout-fluid-slider .custom-slider-card-wrapper {
-    flex: 0 0 85%;
-    scroll-snap-align: start;
-  }
-
-  @media screen and (min-width: 576px) {
-    .apparel-layout-engine.layout-fluid-slider .custom-slider-card-wrapper {
-      flex: 0 0 45%;
-    }
-  }
-
-  @media screen and (min-width: 992px) {
-    .apparel-layout-engine.layout-fluid-slider .custom-slider-card-wrapper {
-      flex: 0 0 calc(25% - 12px);
-    }
-  }
-
-  .custom-slider-card-media {
-    width: 100%;
-    overflow: hidden;
-    background-color: #f7f7f7;
-    display: block;
-  }
-
- .custom-slider-card-img {
-    width: 100%;
-    height: auto;     
-    display: block;
-    object-fit: contain; 
-  }
-
-  .custom-slider-card-placeholder {
-    width: 100%;
-    height: 100%;
-  }
-
-  .custom-slider-card-info {
-    padding: 16px;
-    background: #ffffff;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    box-shadow:
+      0px 7.21px 5.01px rgba(0, 0, 0, 0.0124),
+      0px 18.24px 12.68px rgba(0, 0, 0, 0.0177),
+      0px 43.25px 30.14px rgba(0, 0, 0, 0.022),
+      0px 144px 100px rgba(0, 0, 0, 0.031);
   }
 
-  .custom-slider-card-meta-row {
+  .apparel-{{ section.id }} .as-card-img {
+    width: 100%;
+    aspect-ratio: 264 / 336;
+    overflow: hidden;
+    background: #f5f5f5;
+    flex-shrink: 0;
+  }
+
+  .apparel-{{ section.id }} .as-card-img img,
+  .apparel-{{ section.id }} .as-card-img svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .apparel-{{ section.id }} .as-card-info {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .apparel-{{ section.id }} .as-card-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
   }
 
-  .custom-slider-card-tag {
-    font-size: 12px;
-    color: #6B7280;
-    text-transform: uppercase;
-  }
-
-  .custom-slider-card-price {
+  .apparel-{{ section.id }} .as-card-tag {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 400;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.65);
   }
 
-  .custom-slider-card-title {
-    font-size: 16px;
-    font-weight: 700;
+  .apparel-{{ section.id }} .as-card-price {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: #000000;
+  }
+
+  .apparel-{{ section.id }} .as-card-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: #000000;
     margin: 0;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 {%- endstyle -%}
 
-<section class="section-space-{{ section.id }}">
-  <div class="apparel-slider-container">
-    <div class="apparel-slider-inner-box">
-      
-      <div class="apparel-slider-header">
-        {%- if section.settings.heading != blank -%}
-          <h2 class="apparel-slider-heading">{{ section.settings.heading | escape }}</h2>
-        {%- endif -%}
+<section class="apparel-{{ section.id }}">
+  <div class="as-wrap">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="as-title-outside">{{ section.settings.heading }}</h2>
+    {%- endif -%}
 
-        {%- if section.blocks.size > 4 -%}
-          <div class="apparel-slider-nav">
-            <button class="apparel-slider-arrow btn-prev-{{ section.id }}" aria-label="Previous" disabled>
-              <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-            </button>
-            <button class="apparel-slider-arrow btn-next-{{ section.id }}" aria-label="Next">
-              <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-            </button>
-          </div>
+    <div class="as-box">
+      <div class="as-header">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="as-title">{{ section.settings.heading }}</h2>
         {%- endif -%}
+        <div class="as-arrows">
+          <button class="as-arrow as-prev-{{ section.id }}" aria-label="Previous" disabled>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="#000000"/>
+            </svg>
+          </button>
+          <button class="as-arrow as-next-{{ section.id }}" aria-label="Next">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#000000"/>
+            </svg>
+          </button>
+        </div>
       </div>
 
-      <div 
-        id="LayoutEngine-{{ section.id }}"
-        class="apparel-layout-engine {% if section.blocks.size > 4 %}layout-fluid-slider{% else %}layout-static-grid{% endif %}"
-      >
+      <div id="as-track-{{ section.id }}" class="as-track">
         {%- for block in section.blocks -%}
           {%- render 'slider-card', block: block -%}
         {%- endfor -%}
       </div>
-
     </div>
   </div>
 </section>
 
-{%- if section.blocks.size > 4 -%}
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const track = document.getElementById('LayoutEngine-{{ section.id }}');
-    const prevBtn = document.querySelector('.btn-prev-{{ section.id }}');
-    const nextBtn = document.querySelector('.btn-next-{{ section.id }}');
-    
-    if (!track || !prevBtn || !nextBtn) return;
+  (function () {
+    function initSlider() {
+      var track = document.getElementById('as-track-{{ section.id }}');
+      var prev = document.querySelector('.as-prev-{{ section.id }}');
+      var next = document.querySelector('.as-next-{{ section.id }}');
+      if (!track || !prev || !next) return;
 
-    function getScrollStep() {
-      const firstCard = track.querySelector('.custom-slider-card-wrapper');
-      return firstCard ? firstCard.offsetWidth + 16 : track.offsetWidth;
+      function step() {
+        var card = track.querySelector('.as-card');
+        return card ? card.offsetWidth + 24 : 300;
+      }
+
+      function updateArrows() {
+        prev.disabled = track.scrollLeft <= 5;
+        next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 5;
+      }
+
+      next.addEventListener('click', function () {
+        track.scrollBy({ left: step(), behavior: 'smooth' });
+      });
+
+      prev.addEventListener('click', function () {
+        track.scrollBy({ left: -step(), behavior: 'smooth' });
+      });
+
+      track.addEventListener('scroll', updateArrows);
+      updateArrows();
     }
 
-    nextBtn.addEventListener('click', function() {
-      track.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
-    });
-
-    prevBtn.addEventListener('click', function() {
-      track.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
-    });
-
-    track.addEventListener('scroll', function() {
-      prevBtn.disabled = track.scrollLeft <= 5;
-      const maxScroll = track.scrollWidth - track.clientWidth;
-      nextBtn.disabled = track.scrollLeft >= maxScroll - 5;
-    });
-  });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSlider);
+    } else {
+      initSlider();
+    }
+  })();
 </script>
-{%- endif -%}
 
 {% schema %}
 {
@@ -344,20 +375,15 @@
         {
           "type": "url",
           "id": "url",
-          "label": "Card Link"
+          "label": "Card Link URL"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Apparel Slider Section",
-      "blocks": [
-        { "type": "card" },
-        { "type": "card" },
-        { "type": "card" },
-        { "type": "card" }
-      ]
+      "name": "Apparel Slider",
+      "blocks": [{ "type": "card" }, { "type": "card" }, { "type": "card" }, { "type": "card" }]
     }
   ]
 }
