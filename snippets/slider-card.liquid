@@ -1,0 +1,49 @@
+{%- liquid
+  assign card_url = block.settings.url
+  assign has_url = false
+  if card_url != blank
+    assign has_url = true
+  endif
+-%}
+
+{% if has_url %}
+  <a href="{{ card_url }}" class="custom-slider-card-wrapper" {{ block.shopify_attributes }}>
+{% else %}
+  <div class="custom-slider-card-wrapper" {{ block.shopify_attributes }}>
+{% endif %}
+
+  <div class="custom-slider-card-media">
+    {%- if block.settings.image != blank -%}
+      {{ block.settings.image | image_url: width: 600 | image_tag:
+        loading: 'lazy',
+        class: 'custom-slider-card-img',
+        alt: block.settings.title | default: 'Tailgate apparel product media item'
+      }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'custom-slider-card-placeholder' }}
+    {%- endif -%}
+  </div>
+
+  <div class="custom-slider-card-info">
+    <div class="custom-slider-card-meta-row">
+      {%- if block.settings.tag != blank -%}
+        <span class="custom-slider-card-tag">{{ block.settings.tag | escape }}</span>
+      {%- else -%}
+        <span></span>
+      {%- endif -%}
+
+      {%- if block.settings.price != blank -%}
+        <span class="custom-slider-card-price">{{ block.settings.price | escape }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- if block.settings.title != blank -%}
+      <h3 class="custom-slider-card-title">{{ block.settings.title | escape }}</h3>
+    {%- endif -%}
+  </div>
+
+{% if has_url %}
+  </a>
+{% else %}
+  </div>
+{% endif %}
