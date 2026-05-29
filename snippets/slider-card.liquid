@@ -1,0 +1,33 @@
+{%- liquid
+  if block.settings.url != blank
+    assign has_url = true
+  endif
+-%}
+
+{% if has_url %}
+  <a href="{{ block.settings.url }}" class="as-card" {{ block.shopify_attributes }}>
+{% else %}
+  <div class="as-card" {{ block.shopify_attributes }}>
+{% endif %}
+
+<div class="as-card-img">
+  {%- if block.settings.image != blank -%}
+    {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.title }}
+  {%- else -%}
+    {{ 'product-1' | placeholder_svg_tag }}
+  {%- endif -%}
+</div>
+
+<div class="as-card-info">
+  <div class="as-card-meta">
+    <span class="as-card-tag">{{ block.settings.tag }}</span>
+    <span class="as-card-price">{{ block.settings.price }}</span>
+  </div>
+  <p class="as-card-title">{{ block.settings.title }}</p>
+</div>
+
+{% if has_url %}
+  </a>
+{% else %}
+  </div>
+{% endif %}
